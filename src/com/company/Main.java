@@ -22,18 +22,25 @@ public class Main {
         processes = new Process[n];
         maxResources = new int[m]; // the max instances of resources of each resource type
         System.out.print("Please Enter Max Number of Resources ");
+
         for (int i = 0; i < m; i++) {
             maxResources[i] = sc.nextInt(); // gets the maximum instances of each resource
         }
         remainingResources = new int[m];
         System.arraycopy(maxResources, 0, remainingResources, 0, m);
         for (int i = 0; i < n; i++) {
+            boolean emptyProcess=true;
             int[] allocated = new int[m]; // initialize the allocated instances by zeros
             int[] max = new int[m]; // gets the maximum instances of resources that the process wants to finish execution
             for (int j = 0; j < m; j++) {
                 max[j] = random.nextInt(maxResources[j] + 1);
             }
-            processes[i] = new Process(max, allocated, i);
+            for (int j=0;j<m;j++)
+                if(max[j]!=0)
+                    emptyProcess=false;
+            if (emptyProcess)
+                    continue;
+                processes[i] = new Process(max, allocated, i);
         }
         for (int i = 0; i < n; i++) {
             System.out.println(processes[i]);
