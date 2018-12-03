@@ -1,10 +1,22 @@
 package com.company;
 
-public class Request {
-    int[] resources;
-    int processNum;
-    boolean safe;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
+public class Request {
+
+
+    public enum RequestType {allocate, release}
+    private static List<RequestType> TYPES = Collections.unmodifiableList(Arrays.asList(RequestType.values()));
+
+    private static int SIZE = TYPES.size();
+
+
+    private int[] resources;
+    private int processNum;
+    private boolean safe;
     public Request(int[] resources, int processNum) {
         this.resources = resources;
         this.processNum = processNum;
@@ -12,13 +24,40 @@ public class Request {
 
     @Override
     public String toString() {
-        String s = processNum + " ";
+        StringBuilder s = new StringBuilder(processNum + " ");
 
-        for (int i = 0; i < resources.length; i++) {
-            s += resources[i] + " ";
+        for (int resource : resources) {
+            s.append(resource).append(" ");
         }
-        s+=safe;
-        return s;
+        s.append(safe);
+        return s.toString();
+    }
+    public String ReleaseString() {
+        StringBuilder s = new StringBuilder(processNum + " ");
+
+        for (int resource : resources) {
+            s.append(resource).append(" ");
+        }
+        return s.toString();
     }
 
+    public static RequestType getRandomRequestType(Random random) {
+        return TYPES.get(random.nextInt(SIZE));
+    }
+
+    public int getResourceNumber(int resourceNumber) {
+        return resources[resourceNumber];
+    }
+
+    public void setSafe(boolean safe) {
+        this.safe = safe;
+    }
+
+    public int getProcessNum() {
+        return processNum;
+    }
+
+    public boolean isSafe() {
+        return safe;
+    }
 }
