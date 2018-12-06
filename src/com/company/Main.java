@@ -21,7 +21,7 @@ public class Main {
         m = sc.nextInt(); // number of resources
         processes = new Process[n];
         maxResources = new int[m]; // the max instances of resources of each resource type
-        System.out.print("Please Enter Max Number of Resources ");
+        System.out.print("Please Enter Max Number of instances for each Resources ");
 
         for (int i = 0; i < m; i++) {
             maxResources[i] = sc.nextInt(); // gets the maximum instances of each resource
@@ -29,21 +29,21 @@ public class Main {
         remainingResources = new int[m];
         System.arraycopy(maxResources, 0, remainingResources, 0, m);
         for (int i = 0; i < n; i++) {
-            boolean emptyProcess=true;
+            boolean emptyProcess = true;
             int[] allocated = new int[m]; // initialize the allocated instances by zeros
             int[] max = new int[m]; // gets the maximum instances of resources that the process wants to finish execution
             for (int j = 0; j < m; j++) {
                 max[j] = random.nextInt(maxResources[j] + 1);
             }
-            for (int j=0;j<m;j++)
-                if(max[j]!=0)
-                    emptyProcess=false;
+            for (int j = 0; j < m; j++)
+                if (max[j] != 0)
+                    emptyProcess = false;
             if (emptyProcess)
-                    continue;
-                processes[i] = new Process(max, allocated, i);
+                continue;
+            processes[i] = new Process(max, allocated, i);
         }
         for (int i = 0; i < n; i++) {
-            System.out.println(processes[i]);
+            System.out.println("Max needed of each resource for "+processes[i]);
         }
 
         while (processesFinished != n) {
@@ -51,7 +51,7 @@ public class Main {
             Process selectedProcess = processes[processNum]; // gets the randomized process from the array
             if (selectedProcess.isFinished())
                 continue;
-            boolean emptyRequest=true;
+            boolean emptyRequest = true;
             Request.RequestType type = Request.getRandomRequestType(random); // gets if the next request is allocation or release
             int[] resources = new int[m]; // array of the requested/released resources
             if (type == Request.RequestType.release) {
@@ -60,10 +60,10 @@ public class Main {
                 selectedProcess.releaseResources(resources); // decrement the value of the allocated resources by the process
                 for (int i = 0; i < m; i++)
                     remainingResources[i] += resources[i]; // increment the value of the remaining resources by the value of the freed resources
-                for (int i=0;i<m;i++)
-                    if (resources[i]!=0)
-                        emptyRequest=false;
-                if(emptyRequest)
+                for (int i = 0; i < m; i++)
+                    if (resources[i] != 0)
+                        emptyRequest = false;
+                if (emptyRequest)
                     continue;
                 Request request = new Request(resources, processNum);
                 request.setSafe(true);
@@ -75,10 +75,10 @@ public class Main {
                 int boundary = Math.min(selectedProcess.getRequiredRecourse(i) + 1, remainingResources[i] + 1);
                 resources[i] = random.nextInt(boundary);
             }
-            for (int i=0;i<m;i++)// gets rid of empty requests
-                if (resources[i]!=0)
-                    emptyRequest=false;
-            if(emptyRequest)
+            for (int i = 0; i < m; i++)// gets rid of empty requests
+                if (resources[i] != 0)
+                    emptyRequest = false;
+            if (emptyRequest)
                 continue;
             Request request = new Request(resources, processNum); // initializes a new request
 
@@ -99,7 +99,8 @@ public class Main {
 
 
             }
-                System.out.println(request);
+            System.out.println(request);
         }
+        System.out.println("The System Terminated successfully after finishing 4 requests from each Process ");
     }
 }

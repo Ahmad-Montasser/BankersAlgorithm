@@ -24,7 +24,7 @@ public class Request {
 
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder(processNum + " ");
+        StringBuilder s = new StringBuilder("P"+processNum + " ");
 
         for (int resource : resources) {
             s.append(resource).append(" ");
@@ -33,7 +33,7 @@ public class Request {
         return s.toString();
     }
     public String ReleaseString() {
-        StringBuilder s = new StringBuilder(processNum + " ");
+        StringBuilder s = new StringBuilder("P"+processNum + " ");
 
         for (int resource : resources) {
             s.append(resource).append(" ");

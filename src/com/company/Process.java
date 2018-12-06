@@ -99,7 +99,7 @@ public class Process {
         StringBuilder dummy = new StringBuilder(" ");
         for (int i = 0; i < max.length; i++)
             dummy.append(max[i]).append(" ");
-        return "p" + processNumber + dummy.toString();
+        return "P" + processNumber + dummy.toString();
     }
 
 }
